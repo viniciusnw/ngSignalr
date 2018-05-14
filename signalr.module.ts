@@ -1,9 +1,8 @@
 // CORE
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-// Custom components
-import { ComponentsModule } from '../../src/app/components/components.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from "@angular/common/http";
 
 // Signalr service
 import { SignalrCommunicationService } from './signalr-communication.service';
@@ -18,8 +17,9 @@ import { SignalrStatesService } from './services/signalr-states.service';
 
 @NgModule({
     imports: [
-        ComponentsModule,
-        CommonModule
+        CommonModule,
+        BrowserModule,
+        HttpClientModule
     ],
     exports: [
         

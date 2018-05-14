@@ -6,13 +6,10 @@ import { Component, Injectable, NgZone } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Subject, Observer } from "rxjs";
 
-import { AppState } from '../interfaces/app-state.interface';
-
 // HUB SIGNALR SERVICES
 import { SignalrSubscribesManagement } from "./signalr-subscribes-management.service";
 import { SignalrProxyChannelsManagement } from './signalr-proxy-channels-management.service';
 import { SignalrEventsManagement } from './signalr-events-management.service';
-import { SettingsService } from '../services/settings/settings.service';
 
 @Injectable()
 export class SignalrCommunicationService {
@@ -34,7 +31,6 @@ export class SignalrCommunicationService {
     };
 
     constructor(
-        private settingsService: SettingsService,
         // helpers
         private SlrSubsMgMt: SignalrSubscribesManagement,
         private SlrProxysChnMgMt: SignalrProxyChannelsManagement,
@@ -52,7 +48,7 @@ export class SignalrCommunicationService {
         if (this.checkConnection()) {
 
             // set signalr no jquery conection
-            this.hubConnection = hubConnection(this.settingsService.getConfigurationKeyValue('signalRUrl'));
+            this.hubConnection = hubConnection('');
 
             // create a proxy and your events
             this.subscribeHubProxy = this.hubConnection.createHubProxy("subscribe"); // proxy subscribe
