@@ -6,7 +6,6 @@ import { Component, Injectable, NgZone } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Subject, Observer } from "rxjs";
 
-import { Store } from '@ngrx/store';
 import { AppState } from '../interfaces/app-state.interface';
 
 // HUB SIGNALR SERVICES
@@ -154,21 +153,15 @@ export class SignalrCommunicationService {
      * @param subject
      */
     private proxySubscribe(CustomChannel: string, topic: string, subject: Subject<any>) {
+        let invokeParans = this.SlrProxysChnMgMt.proxySubscribeArray(CustomChannel, topic, '');
 
-        let invokeParans;
-
-        this.store.select(s => s.authentication).subscribe(data => {
-
-            let invokeParans = this.SlrProxysChnMgMt.proxySubscribeArray(CustomChannel, topic, (data.currentUser) ? data.currentUser.token : '');
-
-            this._ngZone.runOutsideAngular(() => {
-                this.subscribeHubProxy
-                    .invoke(...invokeParans)
-                    .fail(err => {
-                        console.warn(err);
-                        subject.error(err);
-                    });
-            });
+        this._ngZone.runOutsideAngular(() => {
+            this.subscribeHubProxy
+                .invoke(...invokeParans)
+                .fail(err => {
+                    console.warn(err);
+                    subject.error(err);
+                });
         });
     }
 

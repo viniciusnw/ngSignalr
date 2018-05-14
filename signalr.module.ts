@@ -13,6 +13,7 @@ import { SignalrProxyChannelsManagement } from './signalr-proxy-channels-managem
 import { SignalrEventsManagement } from './signalr-events-management.service';
 
 // Signalr serviços expostos
+import { StockSubscribeService } from './services/stock-subscribe.service';
 import { SignalrStatesService } from './services/signalr-states.service';
 
 @NgModule({

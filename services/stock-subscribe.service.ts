@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 
+import { SignalrCommunicationService } from '../signalr-communication.service';
 import { SignalrSubscribesManagement } from '../signalr-subscribes-management.service';
 import { SignalrStatesService } from './signalr-states.service';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../interfaces/app-state.interface';
 
 @Injectable()
 export class StockSubscribeService {
@@ -16,15 +15,11 @@ export class StockSubscribeService {
     private logged: boolean
 
     constructor(
+        private SlrCommService: SignalrCommunicationService,
         private SlrSubsChnMgMt: SignalrSubscribesManagement,
         private SlrStates: SignalrStatesService,
-        private store: Store<AppState>
     ) {
         this.startInitialState();
-        store.select(s => s.authentication)
-            .subscribe(data => {
-                this.logged = (data.currentUser) ? true : false;
-            });
     }
 
     private startInitialState() {
